@@ -10,7 +10,7 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
-func CreateRandomEntry(t *testing.T) Entry {
+func createRandomEntry(t *testing.T) Entry {
 	account := createRandomAccount(t)
 
 	arg := CreateEntryParams{
@@ -33,11 +33,11 @@ func CreateRandomEntry(t *testing.T) Entry {
 }
 
 func TestCreateEntry(t *testing.T) {
-	CreateRandomEntry(t)
+	createRandomEntry(t)
 }
 
 func TestGetEntry(t *testing.T) {
-	entry1 := CreateRandomEntry(t)
+	entry1 := createRandomEntry(t)
 	entry2, err := testQueries.GetEntry(context.Background(), entry1.ID)
 
 	require.NoError(t, err)
@@ -52,7 +52,7 @@ func TestGetEntry(t *testing.T) {
 func TestListEntries(t *testing.T) {
 	createdEntries := make(map[int64]bool)
 	for i := 0; i < 10; i++ {
-		entry := CreateRandomEntry(t)
+		entry := createRandomEntry(t)
 		createdEntries[entry.ID] = true
 	}
 
@@ -76,7 +76,7 @@ func TestListEntries(t *testing.T) {
 }
 
 func TestUpdateEntry(t *testing.T) {
-	entry1 := CreateRandomEntry(t)
+	entry1 := createRandomEntry(t)
 
 	arg := UpdateEntryParams{
 		ID:     entry1.ID,
@@ -95,7 +95,7 @@ func TestUpdateEntry(t *testing.T) {
 }
 
 func TestDeleteEntry(t *testing.T) {
-	entry1 := CreateRandomEntry(t)
+	entry1 := createRandomEntry(t)
 	err := testQueries.DeleteEntry(context.Background(), entry1.ID)
 	require.NoError(t, err)
 
