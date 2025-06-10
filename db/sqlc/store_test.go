@@ -20,7 +20,7 @@ func TestTransferTx(t *testing.T) {
 	errs := make(chan error)
 	results := make(chan TransferTxResult)
 
-	for i := 0; i < n; i++ {
+	for range n {
 		go func() {
 			result, err := store.TransferTx(context.Background(), TransferTxParams{
 				FromAccountID: account1.ID,
@@ -34,7 +34,7 @@ func TestTransferTx(t *testing.T) {
 	}
 
 	// check results
-	for i := 0; i < n; i++ {
+	for range n {
 		err := <-errs
 
 		require.NoError(t, err)
